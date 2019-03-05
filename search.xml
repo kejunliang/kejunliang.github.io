@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>webcrawler</title>
+      <link href="/2019/03/05/webcrawler/"/>
+      <url>/2019/03/05/webcrawler/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 网络爬虫 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>欢迎来到我的博客</title>
+      <link href="/2019/03/05/hello-world/"/>
+      <url>/2019/03/05/hello-world/</url>
+      
+        <content type="html"><![CDATA[<h2 id="快速创建一个博客"><a href="#快速创建一个博客" class="headerlink" title="快速创建一个博客"></a>快速创建一个博客</h2><h3 id="创建一个博客"><a href="#创建一个博客" class="headerlink" title="创建一个博客"></a>创建一个博客</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="创建文件"><a href="#创建文件" class="headerlink" title="创建文件"></a>创建文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="同步到github"><a href="#同步到github" class="headerlink" title="同步到github"></a>同步到github</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>domino- xml解析</title>
+      <link href="/2019/02/28/domino/"/>
+      <url>/2019/02/28/domino/</url>
+      
+        <content type="html"><![CDATA[<h1 id="domino-日常打卡-xml解析"><a href="#domino-日常打卡-xml解析" class="headerlink" title="domino 日常打卡-xml解析"></a>domino 日常打卡-xml解析</h1><h2 id="其实在我们获取到domParser-Document方法后就可以用对象-来查看所有获取的方法，然后根据自己的需求来获取数据"><a href="#其实在我们获取到domParser-Document方法后就可以用对象-来查看所有获取的方法，然后根据自己的需求来获取数据" class="headerlink" title="其实在我们获取到domParser.Document方法后就可以用对象.来查看所有获取的方法，然后根据自己的需求来获取数据"></a>其实在我们获取到domParser.Document方法后就可以用对象.来查看所有获取的方法，然后根据自己的需求来获取数据</h2><p>解析xml的常用方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">REM</span><br><span class="line">功能：将xml字符串转化为xml对象</span><br><span class="line">%END REM</span><br><span class="line">Function getdocflowxmltime(strXml As String ) As Double </span><br><span class="line">    On Error GoTo h</span><br><span class="line">    Dim session As New NotesSession</span><br><span class="line">Dim domParser As NotesDOMParser   &apos;定义xml 文档对象</span><br><span class="line">Dim documentList As NotesDOMNodeList</span><br><span class="line">Dim eNode As NotesDOMElementNode</span><br><span class="line">Dim i As Integer</span><br><span class="line">Dim allstat As Double </span><br><span class="line">    &apos;找到每条文档对应的意见文档</span><br><span class="line">strXml = Replace(Replace(strXml,Chr(10),&quot;&quot;) ,Chr(13),&quot;&quot;)</span><br><span class="line">If strXml &lt;&gt; &quot;&quot; Then</span><br><span class="line">Set domParser=session.CreateDOMParser(strXml)</span><br><span class="line">domParser.Process</span><br><span class="line">Set documentList = domParser.Document.GetElementsByTagName (&quot;NodeInfo&quot;)  &apos;根据实际需求来处理</span><br><span class="line">For i = 1 To documentList.NumberOfEntries</span><br><span class="line">Set eNode = documentList.GetItem(i)</span><br><span class="line">&apos;根据实际需求来解析 </span><br><span class="line">Next</span><br><span class="line"></span><br><span class="line">End If</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">getdocflowxmltime=allstat</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&apos;msg(allstat)</span><br><span class="line"></span><br><span class="line">Exit Function </span><br><span class="line">h:</span><br><span class="line">showerror(&quot;getdocflowxmltime&quot;)</span><br><span class="line">End Function</span><br></pre></td></tr></table></figure></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> domino </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> domino </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>github创建个人博客的说明</title>
+      <link href="/2019/02/27/day/"/>
+      <url>/2019/02/27/day/</url>
+      
+        <content type="html"><![CDATA[<h1 id="一-创建仓库"><a href="#一-创建仓库" class="headerlink" title="一 创建仓库"></a>一 创建仓库</h1><p>   <strong> 这里要注意仓库的地址必须是你的github的帐号+github.io,比如kejunliang.github.io，否则你会在后面遇到一个坑，就是你的css样式在发布到仓库后无法正常加载。</strong><br><img src="/2019/02/27/day/creat.png" alt></p><h1 id="二-打开仓库的设置页面，找到GitHub-Pages"><a href="#二-打开仓库的设置页面，找到GitHub-Pages" class="headerlink" title="二 打开仓库的设置页面，找到GitHub Pages"></a>二 打开仓库的设置页面，找到GitHub Pages</h1><p><img src="/2019/02/27/day/page.png" alt></p><h1 id="三-选择主题"><a href="#三-选择主题" class="headerlink" title="三 选择主题"></a>三 选择主题</h1><p><img src="/2019/02/27/day/select.png" alt></p><h1 id="四-主题选择后确定提交后就可以了"><a href="#四-主题选择后确定提交后就可以了" class="headerlink" title="四 主题选择后确定提交后就可以了"></a>四 主题选择后确定提交后就可以了</h1><h1 id="五-在浏览器访问自己在第一步设置的地址-比如kejunliang-github-io或者在GitHub-Pages页面查看自己的博客地址。"><a href="#五-在浏览器访问自己在第一步设置的地址-比如kejunliang-github-io或者在GitHub-Pages页面查看自己的博客地址。" class="headerlink" title="五 在浏览器访问自己在第一步设置的地址 比如kejunliang.github.io或者在GitHub Pages页面查看自己的博客地址。"></a>五 在浏览器访问自己在第一步设置的地址 比如kejunliang.github.io或者在GitHub Pages页面查看自己的博客地址。</h1><h1 id="六-安装hexo"><a href="#六-安装hexo" class="headerlink" title="六 安装hexo"></a>六 安装hexo</h1>]]></content>
+      
+      
+      <categories>
+          
+          <category> hexo                       （这个就是文章的分类了） </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> git                   （这个就是文章的标签了） </tag>
+            
+            <tag> hexo               （这个就是文章的标签了） </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>日记</title>
+      <link href="/2019/02/27/note/"/>
+      <url>/2019/02/27/note/</url>
+      
+        <content type="html"><![CDATA[<h2 id="每日感悟"><a href="#每日感悟" class="headerlink" title="每日感悟"></a>每日感悟</h2><p>  如果改变不了环境，那么就改变自己吧。</p><h1 id="如何在github创建个人的博客"><a href="#如何在github创建个人的博客" class="headerlink" title="如何在github创建个人的博客"></a>如何在github创建个人的博客</h1><h2 id="在github创建一个项目"><a href="#在github创建一个项目" class="headerlink" title="在github创建一个项目"></a>在github创建一个项目</h2>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+  
+  
+</search>
