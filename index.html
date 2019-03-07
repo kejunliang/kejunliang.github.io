@@ -88,7 +88,7 @@
 			
 				<div class="m_search">
 					<form name="searchform" class="form u-search-form">
-						<input type="text" class="input u-search-input" placeholder="搜尋">
+						<input type="text" class="input u-search-input" placeholder="Search">
 						<span class="icon"><i class="fas fa-search fa-fw"></i></span>
 					</form>
 				</div>
@@ -202,6 +202,14 @@
       
       
         
+          
+          <div class="new-meta-item category">
+            <a href="/categories/网络爬虫/">
+              <i class="fas fa-folder-open" aria-hidden="true"></i>
+              网络爬虫
+            </a>
+          </div>
+        
       
       
       
@@ -211,7 +219,21 @@
 </section>
 
     <section class="article typo">
-        
+        <h1 id="模拟登录的实现"><a href="#模拟登录的实现" class="headerlink" title="模拟登录的实现"></a>模拟登录的实现</h1><p>   <strong>分析下我们一般的登录过程就是向服务器发送用户和密码，服务器响应后返回一个唯一编码，把这个编码存在Cookie里，这样我们后续的访问都带着这个cookie来访问，就实现了登录过程。下来我们就来实现这两个步骤</strong></p>
+<h1 id="获取cookies"><a href="#获取cookies" class="headerlink" title="获取cookies"></a>获取cookies</h1><ol>
+<li>首先我们用浏览器分析下登录过程。<br>  1). 打开网站（这里是最简单模式，没有验证码）的登录页面，打开调试器，按照下图操作进行登录。<br>  <img src="/2019/03/05/webcrawler/data1.png" alt><br>  2). 打开第一个截图的login的资源请求如下图，主要是为了找到formdata数据。<br>  <img src="/2019/03/05/webcrawler/data2.png" alt><br>  3). 查找formData的数据，在这里之前json对象传输请求的时候一直遇到了一些问题，后来就改成用url参数的方式来请求，请看下图。<br>  <img src="/2019/03/05/webcrawler/data3.png" alt></li>
+<li><p>到这里我们就可以开始撸代码了。<br>  1). 用node的http 模拟请求。这里注意我们要将请求的方法返回一个promise对象，这样为了将请求成功后的值传递给下一个操作。至于原因就不说了。</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">        <span class="function"><span class="keyword">function</span> <span class="title">getLtpaToken</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">//创建promise 用户再次获取的时候传递cookie信息</span></span><br><span class="line">    <span class="keyword">var</span> p=<span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>)=&gt;</span>&#123;</span><br><span class="line">        <span class="comment">// 第一次请求获取  LtpaToken</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">var</span> options = &#123;  </span><br><span class="line">            hostname: <span class="string">'uatbx.xxx.com.cn'</span>,   <span class="comment">//这里是样例，请注意实际的域名信息</span></span><br><span class="line">            path: <span class="string">"/names.nsf?Login&amp;%25%25ModDate=0000000000000000&amp;reasonType=0&amp;%25%25Surrogate_locale=1&amp;locale=zh-cn&amp;Username="</span>+Username+<span class="string">"&amp;Password="</span>+Password+<span class="string">"&amp;RedirectTo=%2Findishare%2Fsecurtrac.nsf%2Fagttrac%3Fopenagent%26url%3D%2Findishare%2Fbxgl%2Fywjcsj.nsf%2F%28frame%29%2Fdzbx"</span>, </span><br><span class="line">            headers: &#123;</span><br><span class="line">              <span class="string">'Content-Type'</span>: <span class="string">'application/x-www-form-urlencoded'</span>,</span><br><span class="line">            &#125;, </span><br><span class="line">            method: <span class="string">'GET'</span>  </span><br><span class="line">        &#125;;   </span><br><span class="line">        <span class="keyword">var</span> req = http.request(options, <span class="function"><span class="keyword">function</span> (<span class="params">res</span>) </span>&#123;  </span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">'STATUS: '</span> + res.statusCode);  </span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">'HEADERS: '</span> + <span class="built_in">JSON</span>.stringify(res.headers));  </span><br><span class="line">            res.on(<span class="string">"data"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">              chunks.push(data)</span><br><span class="line">            &#125;)</span><br><span class="line">            res.on(<span class="string">"end"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">              <span class="keyword">var</span> cookie=<span class="built_in">JSON</span>.stringify(res.headers)</span><br><span class="line">              resolve(cookie)</span><br><span class="line">            &#125;); </span><br><span class="line">        </span><br><span class="line">        &#125;); </span><br><span class="line">        req.on(<span class="string">'error'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;  </span><br><span class="line">          <span class="built_in">console</span>.log(<span class="string">'problem with request: '</span> + e.message);  </span><br><span class="line">          reject( e.message)</span><br><span class="line">        &#125;);  </span><br><span class="line"></span><br><span class="line">        req.end(); </span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>  2). 我们根据返回过来的LtpaToken在次请求另外一个路径。我们将这个值存在headers的cookies里</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">        <span class="comment">// 进行登录并返回信息</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">GetInfo</span>(<span class="params">cookie</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"jinlaile==="</span>+cookie);</span><br><span class="line">    <span class="keyword">var</span> obj=<span class="built_in">JSON</span>.parse(cookie)</span><br><span class="line">    LtpaToken=obj[<span class="string">"set-cookie"</span>][<span class="number">0</span>].split(<span class="string">";"</span>)[<span class="number">0</span>]</span><br><span class="line">    <span class="comment">/// 第二次请求 登录</span></span><br><span class="line">    <span class="keyword">var</span> cookie=<span class="string">"myusername="</span>+Username+<span class="string">"; SessionID=21C724E0CA4022AA707FD502CCFDCAC9FFC8344C; indi_locale=zh-cn;"</span>+LtpaToken</span><br><span class="line">    <span class="keyword">var</span> options1 = &#123;  </span><br><span class="line">        hostname: <span class="string">'uatbx.xxx.com.cn'</span>,  </span><br><span class="line">        path: <span class="string">"/ghbx/dep1/xypj.nsf/frmTongJi?OpenForm&amp;name="</span>, </span><br><span class="line">        headers: &#123;</span><br><span class="line">          <span class="string">'Content-Type'</span>: <span class="string">'application/x-www-form-urlencoded'</span>,</span><br><span class="line">          <span class="string">'Cookie'</span>: cookie</span><br><span class="line">        &#125;, </span><br><span class="line">        method: <span class="string">'GET'</span>  </span><br><span class="line">    &#125;;  </span><br><span class="line">      </span><br><span class="line">    <span class="keyword">var</span> reqAgain = http.request(options1, <span class="function"><span class="keyword">function</span> (<span class="params">res1</span>) </span>&#123;  </span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'STATUS: '</span> + res1.statusCode);  </span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'HEADERS: '</span> + <span class="built_in">JSON</span>.stringify(res1.headers));  </span><br><span class="line">        <span class="keyword">var</span> chunks=[]</span><br><span class="line">        res1.on(<span class="string">"data"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">                chunks.push(data)</span><br><span class="line">        &#125;)</span><br><span class="line">        res1.on(<span class="string">"end"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="comment">// console.log(chunks)</span></span><br><span class="line">            <span class="comment">// 将二进制数据解码成 gb2312 编码数据</span></span><br><span class="line">            <span class="keyword">var</span> html = iconv.decode(Buffer.concat(chunks), <span class="string">'gb2312'</span>);</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="number">1111</span>)</span><br><span class="line">            <span class="built_in">console</span>.log(html)</span><br><span class="line">            <span class="keyword">var</span> $ = cheerio.load(html,&#123;<span class="attr">decodeEntities</span>: <span class="literal">false</span>&#125;);</span><br><span class="line">            <span class="comment">//获取数据table</span></span><br><span class="line">        &#125;);  </span><br><span class="line">    &#125;);    </span><br><span class="line">    reqAgain.on(<span class="string">'error'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;  </span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'problem with request: '</span> + e.message);  </span><br><span class="line">    &#125;);  </span><br><span class="line">    reqAgain.end();</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>  3). 就是最后调用的主方法了。最终第二次请求的时候其实就能登录并返回页面html代码。</p>
+  <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 根据获取的ltpatoken进行登录并获取页面信息</span></span><br><span class="line"><span class="function"><span class="title">getLtpaToken</span><span class="params">()</span></span>.then((value)=&gt;&#123;</span><br><span class="line">console.log(value)</span><br><span class="line"><span class="function"><span class="title">GetInfo</span><span class="params">(value)</span></span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol start="3">
+<li>后续工作， 优化代码。。。   </li>
+</ol>
+
         
 
         
@@ -524,10 +546,6 @@
         <section class="author">
   <div class="content pure">
     
-      <div class="avatar">
-        <img class="avatar" src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@18.12.27/avatar/avatar.png">
-      </div>
-    
     
       <div class="text">
         
@@ -649,7 +667,7 @@
   <section class="tagcloud">
     
 <header class="pure">
-  <div><i class="fas fa-fire fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;熱門標籤</div>
+  <div><i class="fas fa-fire fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;Hot Tags</div>
   
 </header>
 
@@ -669,7 +687,7 @@
   <section class="category">
     
 <header class="pure">
-  <div><i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;所有分類</div>
+  <div><i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;Categories</div>
   
 </header>
 
@@ -679,6 +697,8 @@
           <li><a class="flat-box" title="/categories/domino/" href="/categories/domino/"><div class="name">domino</div><div class="badge">(1)</div></a></li>
         
           <li><a class="flat-box" title="/categories/hexo-（这个就是文章的分类了）/" href="/categories/hexo-（这个就是文章的分类了）/"><div class="name">hexo                       （这个就是文章的分类了）</div><div class="badge">(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/网络爬虫/" href="/categories/网络爬虫/"><div class="name">网络爬虫</div><div class="badge">(1)</div></a></li>
         
       </ul>
     </div>
@@ -719,9 +739,9 @@
     </div>
   
   <br>
-  <div><p>博客內容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh_TW">姓名標示-非商業性-相同方式分享 4.0 國際 (CC BY-NC-SA 4.0) 協議</a></p>
+  <div><p>Blog content follows the <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) License</a></p>
 </div>
-  <div>本站使用 <a href="https://xaoxuu.com/wiki/material-x/" target="_blank" class="codename">Material X</a> 作为主题，总访问量为 <span id="busuanzi_value_site_pv"><i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i></span> 次。
+  <div>Use <a href="https://xaoxuu.com/wiki/material-x/" target="_blank" class="codename">Material X</a> as theme, total visits <span id="busuanzi_value_site_pv"><i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i></span> times. 
   </div>
 </footer>
 
