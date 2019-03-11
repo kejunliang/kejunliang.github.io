@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>js_obj</title>
+      <link href="/2019/03/11/js-obj/"/>
+      <url>/2019/03/11/js-obj/</url>
+      
+        <content type="html"><![CDATA[<h1 id="今天来聊聊JavaScript的-函数的多种形式"><a href="#今天来聊聊JavaScript的-函数的多种形式" class="headerlink" title="今天来聊聊JavaScript的 函数的多种形式"></a>今天来聊聊JavaScript的 函数的多种形式</h1><p>   我们在项目中经常会写function, 基本就是一个需求或者一个功能我们就写一个function，这样会有很多过程，其实JavaScript也是面向对象的，我们可以尝试用对象的方式来写函数，你会发现不一样的天地。<br>   比如我们在处理一个请假申请过程中，里面会有很多js方法，比如验证、数据格式化、异步获取等方法，我们通常的方式是n个function累加，这样有一个不好的地方就是我们会创建很多全局变量，其实我们完全可以有多种形式来处理我们的各种业务函数。</p><h2 id="1-用对象来收编函数"><a href="#1-用对象来收编函数" class="headerlink" title="1.用对象来收编函数"></a>1.用对象来收编函数</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj=&#123;<span class="attr">fn</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="2-对象的另外一种形式"><a href="#2-对象的另外一种形式" class="headerlink" title="2.对象的另外一种形式"></a>2.对象的另外一种形式</h2> <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line">obj.fn=fucntion()&#123;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><h2 id="3-对象的又一种方式"><a href="#3-对象的又一种方式" class="headerlink" title="3.对象的又一种方式"></a>3.对象的又一种方式</h2> <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        fn:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure><h2 id="4-类的形式"><a href="#4-类的形式" class="headerlink" title="4.类的形式"></a>4.类的形式</h2> <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.fn=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="5-原型的形式"><a href="#5-原型的形式" class="headerlink" title="5.原型的形式"></a>5.原型的形式</h2> <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">//形式1</span></span><br><span class="line"><span class="keyword">var</span> obj=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line">obj.prototype.fn=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line"><span class="comment">//形式2</span></span><br><span class="line"><span class="keyword">var</span> obj1=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line">obj1.prototype=&#123;<span class="attr">fn</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;&#125;</span><br><span class="line"><span class="comment">//形式3</span></span><br><span class="line"><span class="built_in">Function</span>.prototyp.addMethods=<span class="function"><span class="keyword">function</span>(<span class="params">name,fn</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>[name]=fn;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> fn=<span class="keyword">new</span> <span class="built_in">Function</span>()</span><br><span class="line">fn.addMethods(<span class="string">"fn1"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;)</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> js </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> js </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>webcrawler</title>
       <link href="/2019/03/05/webcrawler/"/>
       <url>/2019/03/05/webcrawler/</url>

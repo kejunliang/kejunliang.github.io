@@ -88,7 +88,7 @@
 			
 				<div class="m_search">
 					<form name="searchform" class="form u-search-form">
-						<input type="text" class="input u-search-input" placeholder="Search">
+						<input type="text" class="input u-search-input" placeholder="搜索">
 						<span class="icon"><i class="fas fa-search fa-fw"></i></span>
 					</form>
 				</div>
@@ -160,6 +160,8 @@
         
           
         
+          
+        
       
 
 
@@ -169,6 +171,82 @@
       
 
       
+        
+          
+            <div class="post-wrapper">
+              <article class="post reveal ">
+    
+<section class="meta">
+  
+  
+  <div class="meta" id="header-meta">
+    
+      <h2 class="title">
+          <a href="/2019/03/11/js-obj/">
+              
+                  js_obj
+              
+          </a>
+      </h2>
+    
+
+    <div class="new-meta-box">
+      
+        <div class="new-meta-item author">
+          <a href="http://yoursite.com">
+            <i class="fas fa-user" aria-hidden="true"></i>
+            柯俊良
+          </a>
+        </div>
+      
+      
+        <div class="new-meta-item date">
+          <a class="notlink">
+            <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+            2019-03-11
+          </a>
+        </div>
+      
+      
+        
+          
+          <div class="new-meta-item category">
+            <a href="/categories/js/">
+              <i class="fas fa-folder-open" aria-hidden="true"></i>
+              js
+            </a>
+          </div>
+        
+      
+      
+      
+    </div>
+    <hr>
+  </div>
+</section>
+
+    <section class="article typo">
+        <h1 id="今天来聊聊JavaScript的-函数的多种形式"><a href="#今天来聊聊JavaScript的-函数的多种形式" class="headerlink" title="今天来聊聊JavaScript的 函数的多种形式"></a>今天来聊聊JavaScript的 函数的多种形式</h1><p>   我们在项目中经常会写function, 基本就是一个需求或者一个功能我们就写一个function，这样会有很多过程，其实JavaScript也是面向对象的，我们可以尝试用对象的方式来写函数，你会发现不一样的天地。<br>   比如我们在处理一个请假申请过程中，里面会有很多js方法，比如验证、数据格式化、异步获取等方法，我们通常的方式是n个function累加，这样有一个不好的地方就是我们会创建很多全局变量，其实我们完全可以有多种形式来处理我们的各种业务函数。</p>
+<h2 id="1-用对象来收编函数"><a href="#1-用对象来收编函数" class="headerlink" title="1.用对象来收编函数"></a>1.用对象来收编函数</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj=&#123;<span class="attr">fn</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="2-对象的另外一种形式"><a href="#2-对象的另外一种形式" class="headerlink" title="2.对象的另外一种形式"></a>2.对象的另外一种形式</h2> <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line">obj.fn=fucntion()&#123;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="3-对象的又一种方式"><a href="#3-对象的又一种方式" class="headerlink" title="3.对象的又一种方式"></a>3.对象的又一种方式</h2> <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        fn:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="4-类的形式"><a href="#4-类的形式" class="headerlink" title="4.类的形式"></a>4.类的形式</h2> <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.fn=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="5-原型的形式"><a href="#5-原型的形式" class="headerlink" title="5.原型的形式"></a>5.原型的形式</h2> <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">//形式1</span></span><br><span class="line"><span class="keyword">var</span> obj=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line">obj.prototype.fn=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line"><span class="comment">//形式2</span></span><br><span class="line"><span class="keyword">var</span> obj1=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line">obj1.prototype=&#123;<span class="attr">fn</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;&#125;</span><br><span class="line"><span class="comment">//形式3</span></span><br><span class="line"><span class="built_in">Function</span>.prototyp.addMethods=<span class="function"><span class="keyword">function</span>(<span class="params">name,fn</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>[name]=fn;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> fn=<span class="keyword">new</span> <span class="built_in">Function</span>()</span><br><span class="line">fn.addMethods(<span class="string">"fn1"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;)</span><br></pre></td></tr></table></figure>
+
+        
+
+        
+            <div class="full-width auto-padding tags">
+                
+                    <a href="/tags/js/"><i class="fas fa-hashtag fa-fw"></i>js</a>
+                
+            </div>
+        
+    </section>
+</article>
+
+            </div>
+          
         
           
             <div class="post-wrapper">
@@ -678,12 +756,12 @@
   <section class="tagcloud">
     
 <header class="pure">
-  <div><i class="fas fa-fire fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;Hot Tags</div>
+  <div><i class="fas fa-fire fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;热门标签</div>
   
 </header>
 
     <div class="content pure">
-      <a href="/tags/domino/" style="font-size: 14px; color: #999">domino</a> <a href="/tags/git-（这个就是文章的标签了）/" style="font-size: 14px; color: #999">git                   （这个就是文章的标签了）</a> <a href="/tags/hexo-（这个就是文章的标签了）/" style="font-size: 14px; color: #999">hexo               （这个就是文章的标签了）</a> <a href="/tags/网络爬虫/" style="font-size: 14px; color: #999">网络爬虫</a>
+      <a href="/tags/domino/" style="font-size: 14px; color: #999">domino</a> <a href="/tags/git-（这个就是文章的标签了）/" style="font-size: 14px; color: #999">git                   （这个就是文章的标签了）</a> <a href="/tags/hexo-（这个就是文章的标签了）/" style="font-size: 14px; color: #999">hexo               （这个就是文章的标签了）</a> <a href="/tags/js/" style="font-size: 14px; color: #999">js</a> <a href="/tags/网络爬虫/" style="font-size: 14px; color: #999">网络爬虫</a>
     </div>
   </section>
 
@@ -698,7 +776,7 @@
   <section class="category">
     
 <header class="pure">
-  <div><i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;Categories</div>
+  <div><i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;所有分类</div>
   
 </header>
 
@@ -708,6 +786,8 @@
           <li><a class="flat-box" title="/categories/domino/" href="/categories/domino/"><div class="name">domino</div><div class="badge">(1)</div></a></li>
         
           <li><a class="flat-box" title="/categories/hexo-（这个就是文章的分类了）/" href="/categories/hexo-（这个就是文章的分类了）/"><div class="name">hexo                       （这个就是文章的分类了）</div><div class="badge">(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/js/" href="/categories/js/"><div class="name">js</div><div class="badge">(1)</div></a></li>
         
           <li><a class="flat-box" title="/categories/网络爬虫/" href="/categories/网络爬虫/"><div class="name">网络爬虫</div><div class="badge">(1)</div></a></li>
         
@@ -750,9 +830,9 @@
     </div>
   
   <br>
-  <div><p>Blog content follows the <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) License</a></p>
+  <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
 </div>
-  <div>Use <a href="https://xaoxuu.com/wiki/material-x/" target="_blank" class="codename">Material X</a> as theme, total visits <span id="busuanzi_value_site_pv"><i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i></span> times. 
+  <div>本站使用 <a href="https://xaoxuu.com/wiki/material-x/" target="_blank" class="codename">Material X</a> 作为主题，总访问量为 <span id="busuanzi_value_site_pv"><i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i></span> 次。
   </div>
 </footer>
 
