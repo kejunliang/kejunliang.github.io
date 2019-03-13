@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   
-  <title>github创建个人博客的说明 | 柯俊良</title>
+  <title>js-closure | 柯俊良</title>
   
   
 
@@ -146,7 +146,7 @@
   <div class="meta" id="header-meta">
     
       
-          <h1 class="title">github创建个人博客的说明</h1>
+          <h1 class="title">js-closure</h1>
       
     
 
@@ -163,7 +163,7 @@
         <div class="new-meta-item date">
           <a class="notlink">
             <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-            2019-02-27
+            2019-03-12
           </a>
         </div>
       
@@ -171,9 +171,9 @@
         
           
           <div class="new-meta-item category">
-            <a href="/categories/hexo-（这个就是文章的分类了）/">
+            <a href="/categories/js/">
               <i class="fas fa-folder-open" aria-hidden="true"></i>
-              hexo                       （这个就是文章的分类了）
+              js
             </a>
           </div>
         
@@ -198,26 +198,25 @@
 
     <section class="article typo">
       <div class="article-entry" itemprop="articleBody">
-        <h1 id="一-创建仓库"><a href="#一-创建仓库" class="headerlink" title="一 创建仓库"></a>一 创建仓库</h1><p>   <strong> 这里要注意仓库的地址必须是你的github的帐号+github.io,比如kejunliang.github.io，否则你会在后面遇到一个坑，就是你的css样式在发布到仓库后无法正常加载。</strong><br><img src="/2019/02/27/day/creat.png" alt></p>
-<h1 id="二-打开仓库的设置页面，找到GitHub-Pages"><a href="#二-打开仓库的设置页面，找到GitHub-Pages" class="headerlink" title="二 打开仓库的设置页面，找到GitHub Pages"></a>二 打开仓库的设置页面，找到GitHub Pages</h1><p><img src="/2019/02/27/day/page.png" alt></p>
-<h1 id="三-选择主题"><a href="#三-选择主题" class="headerlink" title="三 选择主题"></a>三 选择主题</h1><p><img src="/2019/02/27/day/select.png" alt></p>
-<h1 id="四-主题选择后确定提交后就可以了"><a href="#四-主题选择后确定提交后就可以了" class="headerlink" title="四 主题选择后确定提交后就可以了"></a>四 主题选择后确定提交后就可以了</h1><h1 id="五-在浏览器访问自己在第一步设置的地址-比如kejunliang-github-io或者在GitHub-Pages页面查看自己的博客地址。"><a href="#五-在浏览器访问自己在第一步设置的地址-比如kejunliang-github-io或者在GitHub-Pages页面查看自己的博客地址。" class="headerlink" title="五 在浏览器访问自己在第一步设置的地址 比如kejunliang.github.io或者在GitHub Pages页面查看自己的博客地址。"></a>五 在浏览器访问自己在第一步设置的地址 比如kejunliang.github.io或者在GitHub Pages页面查看自己的博客地址。</h1><h1 id="六-安装hexo"><a href="#六-安装hexo" class="headerlink" title="六 安装hexo"></a>六 安装hexo</h1>
+        <h1 id="今天来聊聊闭包"><a href="#今天来聊聊闭包" class="headerlink" title="今天来聊聊闭包"></a>今天来聊聊闭包</h1><p>   闭包：就是能读取其他函数内部变量的函数。由于在Javascript语言中，只有函数内部的子函数才能读取局部变量，因此可以把闭包简单理解成”定义在一个函数内部的函数”。</p>
+   <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">   <span class="comment">// 此样例来此 阮一峰的个人日志</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn1</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"><span class="keyword">var</span> n=<span class="number">1</span>;</span><br><span class="line">    add=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;n=n+<span class="number">1</span>&#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">fn2</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        alert(n)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> fn2;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> fn=fn1()</span><br><span class="line"><span class="comment">//可以实现一个计数器</span></span><br><span class="line"><span class="keyword">var</span> b=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; </span><br><span class="line"><span class="keyword">var</span> n=<span class="number">0</span>; </span><br><span class="line"><span class="keyword">var</span> test=<span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123; </span><br><span class="line">    n=n+<span class="number">1</span></span><br><span class="line">    <span class="built_in">console</span>.log(n)</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">return</span> test</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> main=b()</span><br><span class="line">main(); <span class="comment">//1</span></span><br><span class="line">main(); <span class="comment">//2</span></span><br><span class="line">main(); <span class="comment">//3</span></span><br></pre></td></tr></table></figure>
+
       </div>
         
           <section class="meta" id="footer-meta">
             <hr>
             <div class="new-meta-box">
               
-                <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-03-05T13:14:48+08:00">
+                <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-03-13T19:47:15+08:00">
                   <a class="notlink">
                     <i class="fas fa-pencil-alt" aria-hidden="true"></i>
-                    2019-03-05
+                    2019-03-13
                   </a>
                 </div>
               
               
                 
-                <div class="new-meta-item meta-tags"><a class="tag" href="/tags/git-（这个就是文章的标签了）/"><i class="fas fa-hashtag" aria-hidden="true"></i>&nbsp;git                   （这个就是文章的标签了）</a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/hexo-（这个就是文章的标签了）/"><i class="fas fa-hashtag" aria-hidden="true"></i>&nbsp;hexo               （这个就是文章的标签了）</a></div>
+                <div class="new-meta-item meta-tags"><a class="tag" href="/tags/js/"><i class="fas fa-hashtag" aria-hidden="true"></i>&nbsp;js</a></div>
               
               
             </div>
@@ -227,36 +226,22 @@
         
             <div class="prev-next">
                 
-                    <section class="prev">
-                        <span class="art-item-left">
-                            <h6><i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;上一頁</h6>
-                            <h4>
-                                <a href="/2019/02/28/domino/" rel="prev" title="domino- xml解析">
-                                  
-                                      domino- xml解析
-                                  
-                                </a>
-                            </h4>
-                            
-                                
-                                <h6 class="tags">
-                                    <a class="tag" href="/tags/domino/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>domino</a>
-                                </h6>
-                            
-                        </span>
-                    </section>
-                
                 
                     <section class="next">
                         <span class="art-item-right" aria-hidden="true">
                             <h6>下一頁&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
                             <h4>
-                                <a href="/2019/02/27/note/" rel="prev" title="日记">
+                                <a href="/2019/03/11/js-obj/" rel="prev" title="js_obj">
                                     
-                                        日记
+                                        js_obj
                                     
                                 </a>
                             </h4>
+                            
+                                
+                                <h6 class="tags">
+                                    <a class="tag" href="/tags/js/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>js</a>
+                                </h6>
                             
                         </span>
                     </section>
@@ -281,7 +266,7 @@
 
 <script>
     window.subData = {
-        title: 'github创建个人博客的说明',
+        title: 'js-closure',
         tools: true
     }
 </script>
@@ -418,7 +403,7 @@
 </header>
 
     <div class="content pure">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一-创建仓库"><span class="toc-text">一 创建仓库</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二-打开仓库的设置页面，找到GitHub-Pages"><span class="toc-text">二 打开仓库的设置页面，找到GitHub Pages</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三-选择主题"><span class="toc-text">三 选择主题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#四-主题选择后确定提交后就可以了"><span class="toc-text">四 主题选择后确定提交后就可以了</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#五-在浏览器访问自己在第一步设置的地址-比如kejunliang-github-io或者在GitHub-Pages页面查看自己的博客地址。"><span class="toc-text">五 在浏览器访问自己在第一步设置的地址 比如kejunliang.github.io或者在GitHub Pages页面查看自己的博客地址。</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#六-安装hexo"><span class="toc-text">六 安装hexo</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#今天来聊聊闭包"><span class="toc-text">今天来聊聊闭包</span></a></li></ol>
     </div>
   </section>
 

@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>js-closure</title>
+      <link href="/2019/03/12/js-closure/"/>
+      <url>/2019/03/12/js-closure/</url>
+      
+        <content type="html"><![CDATA[<h1 id="今天来聊聊闭包"><a href="#今天来聊聊闭包" class="headerlink" title="今天来聊聊闭包"></a>今天来聊聊闭包</h1><p>   闭包：就是能读取其他函数内部变量的函数。由于在Javascript语言中，只有函数内部的子函数才能读取局部变量，因此可以把闭包简单理解成”定义在一个函数内部的函数”。</p>   <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">   <span class="comment">// 此样例来此 阮一峰的个人日志</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn1</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"><span class="keyword">var</span> n=<span class="number">1</span>;</span><br><span class="line">    add=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;n=n+<span class="number">1</span>&#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">fn2</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        alert(n)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> fn2;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> fn=fn1()</span><br><span class="line"><span class="comment">//可以实现一个计数器</span></span><br><span class="line"><span class="keyword">var</span> b=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; </span><br><span class="line"><span class="keyword">var</span> n=<span class="number">0</span>; </span><br><span class="line"><span class="keyword">var</span> test=<span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123; </span><br><span class="line">    n=n+<span class="number">1</span></span><br><span class="line">    <span class="built_in">console</span>.log(n)</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">return</span> test</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> main=b()</span><br><span class="line">main(); <span class="comment">//1</span></span><br><span class="line">main(); <span class="comment">//2</span></span><br><span class="line">main(); <span class="comment">//3</span></span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> js </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> js </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>js_obj</title>
       <link href="/2019/03/11/js-obj/"/>
       <url>/2019/03/11/js-obj/</url>
